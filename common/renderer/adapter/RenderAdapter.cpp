@@ -6,6 +6,7 @@
 #include <window/Window.h>
 #include <Game.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <scene/Director.h>
 
 glm::mat4 RenderAdapter::getPerspectiveMatrix()
 {
@@ -22,10 +23,15 @@ glm::mat4 RenderAdapter::getPerspectiveMatrix()
 
 glm::mat4 RenderAdapter::getCameraMatrix()
 {
+    auto camera = Director::instance()->getCamera();
+    auto transform = camera->getTransform();
+    glm::tvec3<float> position = *transform->getPosition();
+
     glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 4), // Camera is at (4,3,3), in World Space
+            position, // Camera is at (4,3,3), in World Space
             glm::vec3(0, 0, 0), // and looks at the origin
             glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
     );
+
     return View;
 }

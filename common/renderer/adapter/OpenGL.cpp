@@ -152,6 +152,8 @@ void OpenGL::drawMesh(std::shared_ptr<Mesh> t_mesh)
         bindUvBuffer(t_mesh);
     }
 
+    glVertexAttrib3f(RenderData::VertexColour, 1.0f, 1.0f, 1.0f);
+
     glDrawArrays(GL_TRIANGLES, 0, (GLsizei) t_mesh->getVertCount());
 }
 
@@ -200,14 +202,15 @@ void OpenGL::bindVertColourBuffer(std::shared_ptr<Mesh> t_mesh)
 
 void OpenGL::useMaterial(std::shared_ptr<Material> t_material)
 {
-    auto texture = t_material->getTexture(0);
+    auto texture = t_material->getTexture(0).get();
+    static uint8_t defaultTextureData[] = {255, 255, 255, 255};
+
+    static auto* defaultTexture = new Texture2d(defaultTextureData, 1, 1);
 
     if (!texture)
     {
-        return;
-    }
-
-    if (!texture->isLoaded())
+        texture = defaultTexture;
+    } else if (!texture->isLoaded())
     {
         texture->load();
         std::cout << "Loading texture " << texture->getPath() << std::endl;
@@ -220,13 +223,14 @@ void OpenGL::useMaterial(std::shared_ptr<Material> t_material)
         texture->setTextureId(textureId);
 
         glBindTexture(GL_TEXTURE_2D, texture->getTextureId());
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture->getWidth(), texture->getHeight(), 0, GL_BGR, GL_UNSIGNED_BYTE,
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->getWidth(), texture->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE,
                      texture->getData());
-        // When MAGnifying the image (no bigger mipmap available), use LINEAR filtering
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        // When MINifying the image, use a LINEAR blend of two mipmaps, each filtered LINEARLY too
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        // Generate mipmaps, by the way.
+
         glGenerateMipmap(GL_TEXTURE_2D);
     }
 

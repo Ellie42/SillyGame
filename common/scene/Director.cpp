@@ -12,12 +12,16 @@ Director* Director::instance()
     return &director;
 }
 
-void Director::onUpdate(){
+void Director::onUpdate()
+{
     m_currentScene->onUpdate();
+
+    m_currentCamera->onUpdate();
 
     auto* objects = m_currentSceneState->getObjects();
 
-    for(auto const &obj : *objects){
+    for (auto const& obj : *objects)
+    {
         obj->onUpdate();
     }
 }
@@ -28,6 +32,11 @@ void Director::loadScene(std::unique_ptr<Scene> t_scene)
     m_currentSceneState = std::make_unique<SceneState>();
 
     m_currentScene->onLoad();
+
+    if (!m_currentCamera)
+    {
+        m_currentCamera = std::make_shared<Camera>();
+    }
 }
 
 void Director::addObject(std::shared_ptr<GameObject> t_obj)
@@ -43,4 +52,14 @@ bool Director::isLoading()
 std::vector<std::shared_ptr<GameObject>>* Director::getObjectsInScene()
 {
     return m_currentSceneState->getObjects();
+}
+
+void Director::setCamera(std::shared_ptr<Camera> t_camera)
+{
+    m_currentCamera = t_camera;
+}
+
+std::shared_ptr<Camera> Director::getCamera()
+{
+    return m_currentCamera;
 }

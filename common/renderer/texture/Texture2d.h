@@ -12,7 +12,10 @@
 class Texture2d : public Texture
 {
 public:
+    Texture2d() = default;
     Texture2d(std::string t_path);
+    Texture2d(unsigned char* t_bytes, int width, int height);
+
     void load() override;
 };
 

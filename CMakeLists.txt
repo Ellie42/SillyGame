@@ -48,7 +48,7 @@ add_executable(SillyGame2
         common/renderer/texture/Texture2d.h
         common/renderer/texture/Texture.cpp
         common/renderer/texture/Texture.h
-        lib/stb_image.h)
+        lib/stb_image.h common/object/camera/Camera.cpp common/object/camera/Camera.h game/objects/Camera/TopDownCamera.cpp game/objects/Camera/TopDownCamera.h)
 
 find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED filesystem)

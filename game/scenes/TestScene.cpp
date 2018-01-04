@@ -7,6 +7,7 @@
 #include "TestScene.h"
 #include "../objects/Triangle/Triangle.h"
 #include "../objects/Cube/Cube.h"
+#include "../objects/Camera/TopDownCamera.h"
 
 void TestScene::onLoad()
 {
@@ -36,11 +37,15 @@ void TestScene::onLoad()
                 object = std::make_shared<Cube>();
             }
 
-            object->getTransform()->setPosition(x * 2, y * 2, 0);
+            object->getTransform()->setPosition(x * 2, 0, y * 2);
 
             Director::instance()->addObject(object);
         }
     }
+
+    auto camera = std::make_shared<TopDownCamera>();
+
+    Director::instance()->setCamera(camera);
 }
 
 float TestScene::getRandomColour()

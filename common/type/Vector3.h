@@ -24,9 +24,11 @@ public:
         z = (T) t_z;
     }
 
-    explicit operator glm::tvec3<T>() {
+    operator glm::tvec3<T>()
+    {
         return glm::tvec3<T>(x, y, z);
     };
+
 };
 
 

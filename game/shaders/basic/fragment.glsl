@@ -10,5 +10,5 @@ out vec3 color;
 void main(){
 //  color = vec3(1.0f, 1.0f, 1.0f);
 //  color = fragmentColor;
-  color = texture(myTextureSampler, UV).rgb;
+  color = texture(myTextureSampler, UV).rgb * fragmentColor;
 }
