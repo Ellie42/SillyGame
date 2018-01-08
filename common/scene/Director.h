@@ -8,7 +8,7 @@
 
 #include <object/GameObject.h>
 #include <vector>
-#include <state/SceneState.h>
+#include <scene/SceneState.h>
 #include <object/camera/Camera.h>
 #include "Scene.h"
 
@@ -17,11 +17,11 @@ class Director
 private:
     bool m_loading = false;
 
-    std::unique_ptr<Scene> m_currentScene;
+    std::shared_ptr<Scene> m_currentScene;
     std::unique_ptr<SceneState> m_currentSceneState;
     std::shared_ptr<Camera> m_currentCamera;
 public:
-    void loadScene(std::unique_ptr<Scene>);
+    void loadScene(std::shared_ptr<Scene>);
 
     void addObject(std::shared_ptr<GameObject>);
 

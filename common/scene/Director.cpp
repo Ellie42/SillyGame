@@ -26,9 +26,9 @@ void Director::onUpdate()
     }
 }
 
-void Director::loadScene(std::unique_ptr<Scene> t_scene)
+void Director::loadScene(std::shared_ptr<Scene> t_scene)
 {
-    m_currentScene = std::move(t_scene);
+    m_currentScene = t_scene;
     m_currentSceneState = std::make_unique<SceneState>();
 
     m_currentScene->onLoad();

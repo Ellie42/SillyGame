@@ -15,24 +15,24 @@ add_executable(SillyGame2
         common/scene/Scene.h
         common/window/Window.cpp
         common/window/Window.h
-        common/state/GameState.cpp
-        common/state/GameState.h
+        common/GameState.cpp
+        common/GameState.h
         common/object/GameObject.cpp
         common/object/GameObject.h
         common/object/position/Transform.cpp
         common/object/position/Transform.h
-        common/type/Vector3.cpp
-        common/type/Vector3.h
+        common/object/position/Vector3.cpp
+        common/object/position/Vector3.h
         game/objects/Triangle/Triangle.cpp
         game/objects/Triangle/Triangle.h
         common/object/render/Mesh.cpp
         common/object/render/Mesh.h
         common/object/render/Material.cpp
         common/object/render/Material.h
-        common/type/Vector3.cpp
-        common/type/Vector3.h
-        common/state/SceneState.cpp
-        common/state/SceneState.h
+        common/object/position/Vector3.cpp
+        common/object/position/Vector3.h
+        common/scene/SceneState.cpp
+        common/scene/SceneState.h
         common/renderer/Renderer.cpp
         common/renderer/Renderer.h
         common/renderer/adapter/RenderAdapter.cpp
@@ -48,12 +48,19 @@ add_executable(SillyGame2
         common/renderer/texture/Texture2d.h
         common/renderer/texture/Texture.cpp
         common/renderer/texture/Texture.h
-        lib/stb_image.h common/object/camera/Camera.cpp common/object/camera/Camera.h game/objects/Camera/TopDownCamera.cpp game/objects/Camera/TopDownCamera.h)
+        lib/stb_image.h
+        common/object/camera/Camera.cpp
+        common/object/camera/Camera.h
+        game/objects/Camera/TopDownCamera.cpp
+        game/objects/Camera/TopDownCamera.h
+        common/input/Input.cpp
+        common/input/Input.h common/time/Time.cpp common/time/Time.h common/object/position/Direction.h game/SceneDirection.cpp game/SceneDirection.h common/scene/ISceneDirection.h game/scenes/game/DebugWorld.cpp game/scenes/game/DebugWorld.h common/world/World.cpp common/world/World.h common/world/terrain/Tile.cpp common/world/terrain/Tile.h common/object/ui/Text.cpp common/object/ui/Text.h common/object/Object.cpp common/object/Object.h common/object/render/Layer.h common/object/render/Layer.h)
 
 find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED filesystem)
+find_package(Freetype REQUIRED)
 
-include_directories(osx common ${Boost_INCLUDE_DIRS} lib)
+include_directories(osx common lib ${Boost_INCLUDE_DIRS} ${FREETYPE_INCLUDE_DIRS})
 
 target_link_libraries(SillyGame2
         "-framework CoreFoundation"
@@ -61,6 +68,7 @@ target_link_libraries(SillyGame2
         ${OPENGL_gl_LIBRARY}
         "-framework OpenGL"
         glfw
+        pthread
         glew)
 
 file(GLOB files "game/shaders/**/*.glsl")

@@ -7,7 +7,9 @@
 #include <scene/Director.h>
 #include <memory>
 #include "../game/scenes/TestScene.h"
+#include "../game/SceneDirection.h"
 #include <renderer/Renderer.h>
+#include <input/Input.h>
 
 Game* Game::instance()
 {
@@ -18,8 +20,9 @@ Game* Game::instance()
 
 void Game::init()
 {
+    m_sceneDirection = std::make_unique<SceneDirection>();
     m_window.show();
-    Director::instance()->loadScene(std::make_unique<TestScene>());
+    Director::instance()->loadScene(m_sceneDirection->getScene());
     Renderer::instance()->useAdapter(std::make_unique<OpenGL>());
     Renderer::instance()->init();
 }
@@ -32,6 +35,7 @@ void Game::tick()
 void Game::render()
 {
     Renderer::instance()->render();
+    Input::instance()->update();
     m_window.update();
 }
 
@@ -59,6 +63,8 @@ void Game::updateFrameState()
         m_state.lastFrameDiff = 0;
         initial = false;
     }
+
+    m_state.delta = m_state.lastFrameDiff / 1000;
 
     m_state.lastFrameTime = m_state.currentFrameTime;
 }

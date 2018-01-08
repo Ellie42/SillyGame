@@ -68,11 +68,7 @@ void OpenGL::setModelMatrix(GameObject* t_obj)
     auto camera = getCameraMatrix();
     auto transform = t_obj->getTransform();
 
-    auto model = glm::mat4(1.0f);
-
-    model = glm::translate(model, (glm::tvec3<float>) *transform->getPosition());
-
-    model = model * glm::mat4_cast(*transform->getRotation());
+    auto model = transform->getTransformMatrix();
 
     auto mvp = perspective * camera * model;
 

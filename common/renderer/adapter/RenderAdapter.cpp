@@ -25,11 +25,13 @@ glm::mat4 RenderAdapter::getCameraMatrix()
 {
     auto camera = Director::instance()->getCamera();
     auto transform = camera->getTransform();
-    glm::tvec3<float> position = *transform->getPosition();
+    auto directions = transform->getDirections();
+    auto position = *transform->getPosition();
+    auto forward = position + directions.forward;
 
     glm::mat4 View = glm::lookAt(
-            position, // Camera is at (4,3,3), in World Space
-            glm::vec3(0, 0, 0), // and looks at the origin
+            static_cast<glm::vec3>(position), // Camera is at (4,3,3), in World Space
+            static_cast<glm::vec3>(forward), // and looks at the origin
             glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
     );
 

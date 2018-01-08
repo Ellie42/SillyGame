@@ -34,8 +34,3 @@ std::shared_ptr<Mesh> GameObject::getMesh()
 {
     return m_mesh;
 }
-
-Transform* GameObject::getTransform()
-{
-    return &m_transform;
-}

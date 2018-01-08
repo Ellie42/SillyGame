@@ -21,6 +21,7 @@ struct GameState
     hrc_time_point currentFrameTime;
     double fixedDelta = 1000 / 30;
     double lastFrameDiff;
+    double delta;
 };
 
 

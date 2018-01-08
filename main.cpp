@@ -11,7 +11,8 @@ int main()
     auto accumulator = 0.0;
     auto* state = game->getState();
 
-    while(game->isRunning()){
+    while (game->isRunning())
+    {
         game->updateFrameState();
 
         accumulator += state->lastFrameDiff;
@@ -24,6 +25,7 @@ int main()
 
         game->tick();
         game->render();
+
 
         std::cout << 1000 / state->lastFrameDiff << "\r";
 

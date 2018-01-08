@@ -10,11 +10,11 @@
 #include <object/render/Material.h>
 #include <memory>
 #include "object/position/Transform.h"
+#include <object/Object.h>
 
-class GameObject
+class GameObject : public Object
 {
 protected:
-    Transform m_transform;
     std::shared_ptr<Mesh> m_mesh = nullptr;
     std::shared_ptr<Material> m_material = nullptr;
 public:
@@ -29,8 +29,6 @@ public:
     void setMaterial(std::shared_ptr<Material>);
 
     std::shared_ptr<Material> getMaterial();
-
-    Transform* getTransform();
 
     virtual void onUpdate(){};
 };

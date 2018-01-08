@@ -6,7 +6,7 @@
 #define SILLYGAME2_MESH_H
 
 
-#include <type/Vector3.h>
+#include <object/position/Vector3.h>
 #include <vector>
 
 class Mesh

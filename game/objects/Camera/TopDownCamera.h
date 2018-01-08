@@ -10,6 +10,8 @@
 
 class TopDownCamera : public Camera
 {
+private:
+    float m_cameraSpeed = 5;
 public:
     TopDownCamera();
     void onUpdate() override;
