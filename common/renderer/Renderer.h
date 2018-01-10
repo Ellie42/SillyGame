@@ -8,8 +8,10 @@
 
 #include <renderer/adapter/RenderAdapter.h>
 #include <memory>
+#include <component/render/MeshRenderer.h>
+#include "IRendererVisitor.h"
 
-class Renderer
+class Renderer : IRendererVisitor
 {
 private:
     std::unique_ptr<RenderAdapter>  m_adapter;
@@ -17,9 +19,16 @@ private:
 public:
     static Renderer* instance();
 
+private:
+    void visit(TextRenderer* t_renderer) override;
+
+public:
     void init();
     void render();
+    void visit(MeshRenderer* t_renderer) override;
     void useAdapter(std::unique_ptr<RenderAdapter>);
+
+    std::shared_ptr<Object> m_currentObject;
 };
 
 

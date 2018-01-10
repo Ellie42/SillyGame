@@ -6,11 +6,12 @@
 #include <vector>
 #include <iostream>
 #include <Game.h>
+#include <component/render/MeshRenderer.h>
 
 Triangle::Triangle()
 {
+    auto renderer = std::make_shared<MeshRenderer>();
     auto mesh = std::make_shared<Mesh>();
-
     static std::vector<float> verts
             {
                     -1.0f, -1.0f, 0.0f,
@@ -27,7 +28,7 @@ Triangle::Triangle()
     mesh->setVerts(verts);
     mesh->setUvs(uv);
 
-    setMesh(mesh);
+    renderer->setMesh(mesh);
 
     //TODO get material from material manager to handle cached materials
     static auto material = std::make_shared<Material>();
@@ -35,10 +36,11 @@ Triangle::Triangle()
 
     material->setTexture(0, texture);
 
-    setMaterial(material);
+    renderer->setMaterial(material);
+    m_transform.setRotation(
+            glm::rotate(glm::quat(), 0.6f, glm::tvec3<GLfloat>(0.0f, 1.0f, 0.0f)));
 
-//    m_transform.setRotation(
-//            glm::rotate(glm::quat(), 0.6f, glm::tvec3<GLfloat>(0.0f, 1.0f, 0.0f)));
+    setRenderer(renderer);
 }
 
 void Triangle::onUpdate()

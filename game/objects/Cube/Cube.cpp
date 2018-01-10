@@ -6,6 +6,7 @@
 #include <vector>
 #include "Cube.h"
 #include <Game.h>
+#include <component/render/MeshRenderer.h>
 
 Cube::Cube(){
     static const std::vector<GLfloat> verts = {
@@ -47,10 +48,6 @@ Cube::Cube(){
             1.0f,-1.0f, 1.0f
     };
 
-    auto mesh = std::make_shared<Mesh>();
-
-    mesh->setVerts(verts);
-
     static const std::vector<GLfloat> colours= {
             0.583f,  0.771f,  0.014f,
             0.609f,  0.115f,  0.436f,
@@ -90,13 +87,20 @@ Cube::Cube(){
             0.982f,  0.099f,  0.879f
     };
 
+    auto renderer = std::make_shared<MeshRenderer>();
+    auto mesh = std::make_shared<Mesh>();
+
+    mesh->setVerts(verts);
+
     mesh->setVertColours(colours);
 
-    setMesh(mesh);
+    renderer->setMesh(mesh);
 
     static auto material = std::make_shared<Material>();
 
-    setMaterial(material);
+    renderer->setMaterial(material);
+
+    setRenderer(renderer);
 }
 
 void Cube::onUpdate()

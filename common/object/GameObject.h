@@ -6,31 +6,14 @@
 #define SILLYGAME2_GAMEOBJECT_H
 
 
-#include <object/render/Mesh.h>
-#include <object/render/Material.h>
+#include <component/render/Mesh.h>
+#include <component/render/Material.h>
 #include <memory>
 #include "object/position/Transform.h"
 #include <object/Object.h>
 
 class GameObject : public Object
 {
-protected:
-    std::shared_ptr<Mesh> m_mesh = nullptr;
-    std::shared_ptr<Material> m_material = nullptr;
-public:
-    GameObject();
-
-    void setMesh(std::shared_ptr<Mesh>);
-
-    void setMesh(Mesh*);
-
-    std::shared_ptr<Mesh> getMesh();
-
-    void setMaterial(std::shared_ptr<Material>);
-
-    std::shared_ptr<Material> getMaterial();
-
-    virtual void onUpdate(){};
 };
 
 

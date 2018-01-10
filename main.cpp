@@ -26,10 +26,7 @@ int main()
         game->tick();
         game->render();
 
-
         std::cout << 1000 / state->lastFrameDiff << "\r";
-
-//        std::this_thread::sleep_for(std::chrono::milliseconds((int)state->fixedDelta));
     }
 
     return 0;

@@ -6,10 +6,10 @@
 #define SILLYGAME2_SCENEDIRECTION_H
 
 
-#include <scene/ISceneDirection.h>
+#include <scene/IScript.h>
 #include "scenes/TestScene.h"
 
-class SceneDirection : public ISceneDirection
+class Script : public IScript
 {
 public:
     std::shared_ptr<Scene> getScene() override;

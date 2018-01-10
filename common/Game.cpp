@@ -7,9 +7,10 @@
 #include <scene/Director.h>
 #include <memory>
 #include "../game/scenes/TestScene.h"
-#include "../game/SceneDirection.h"
+#include "../game/Script.h"
 #include <renderer/Renderer.h>
 #include <input/Input.h>
+#include <renderer/text/FontManager.h>
 
 Game* Game::instance()
 {
@@ -20,11 +21,12 @@ Game* Game::instance()
 
 void Game::init()
 {
-    m_sceneDirection = std::make_unique<SceneDirection>();
+    m_sceneDirection = std::make_unique<Script>();
     m_window.show();
     Director::instance()->loadScene(m_sceneDirection->getScene());
     Renderer::instance()->useAdapter(std::make_unique<OpenGL>());
     Renderer::instance()->init();
+    FontManager::instance()->init();
 }
 
 void Game::tick()

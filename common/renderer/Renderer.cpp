@@ -6,6 +6,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "Renderer.h"
+#include <component/render/ui/TextRenderer.h>
 
 Renderer* Renderer::instance()
 {
@@ -14,7 +15,8 @@ Renderer* Renderer::instance()
     return &i;
 }
 
-void Renderer::init(){
+void Renderer::init()
+{
     m_adapter->init();
 }
 
@@ -24,23 +26,41 @@ void Renderer::render()
 
     m_adapter->clear();
 
-//    static auto* material = new Material;
-//    m_adapter->useShader(material->getShader());
+    for (auto const& obj : *list)
+    {
+        auto renderer = obj->getRenderer();
 
-    for(auto const &obj : *list){
-        auto material = obj->getMaterial();
-        auto mesh = obj->getMesh();
+        if (!renderer)
+        {
+            continue;
+        }
 
-        m_adapter->useShader(material->getShader());
-        m_adapter->setModelMatrix(obj.get());
-        m_adapter->useMaterial(material);
-        m_adapter->drawMesh(mesh);
+        m_currentObject = obj;
 
-        m_adapter->reset();
+        renderer->accept(this);
     }
+
+    m_adapter->reset();
 }
 
 void Renderer::useAdapter(std::unique_ptr<RenderAdapter> t_adapter)
 {
     m_adapter = std::move(t_adapter);
+}
+
+void Renderer::visit(MeshRenderer* t_renderer)
+{
+        auto material = t_renderer->getMaterial();
+        auto mesh = t_renderer->getMesh();
+
+        m_adapter->useShader(material->getShader());
+        m_adapter->useMaterial(material);
+        m_adapter->setModelMatrix(m_currentObject.get());
+        m_adapter->drawMesh(mesh);
+}
+
+void Renderer::visit(TextRenderer* t_renderer)
+{
+    auto texture = t_renderer->getBitmap();
+//    std::cout << "render text" << std::endl;
 }

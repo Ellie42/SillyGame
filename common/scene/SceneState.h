@@ -11,10 +11,10 @@
 class SceneState
 {
 private:
-    std::vector<std::shared_ptr<GameObject>> m_objects;
+    std::vector<std::shared_ptr<Object>> m_objects;
 public:
-    void addObject(std::shared_ptr<GameObject>);
-    std::vector<std::shared_ptr<GameObject>>* getObjects();
+    void addObject(std::shared_ptr<Object>);
+    std::vector<std::shared_ptr<Object>>* getObjects();
 };
 
 

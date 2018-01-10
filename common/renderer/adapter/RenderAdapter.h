@@ -6,8 +6,8 @@
 #define SILLYGAME2_RENDERADAPTER_H
 
 
-#include <object/render/Material.h>
-#include <object/render/Mesh.h>
+#include <component/render/Material.h>
+#include <component/render/Mesh.h>
 #include <object/GameObject.h>
 
 enum RenderData
@@ -32,7 +32,7 @@ public:
 
     virtual void clear() = 0;
 
-    virtual void setModelMatrix(GameObject* t_obj) = 0;
+    virtual void setModelMatrix(Object* t_obj) = 0;
 
     virtual void batch(std::shared_ptr<GameObject> t_object) = 0;
 

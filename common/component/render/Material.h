@@ -9,13 +9,14 @@
 #include <string>
 #include <renderer/texture/Texture2d.h>
 #include <vector>
+#include <map>
 #include "Shader.h"
 
 class Material
 {
 private:
     Shader m_shader;
-    std::vector<std::shared_ptr<Texture>> m_textures;
+    std::map<int, std::shared_ptr<Texture>> m_textures;
 public:
     void setShader(std::string);
 

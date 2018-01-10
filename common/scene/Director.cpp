@@ -39,9 +39,10 @@ void Director::loadScene(std::shared_ptr<Scene> t_scene)
     }
 }
 
-void Director::addObject(std::shared_ptr<GameObject> t_obj)
+void Director::addObject(std::shared_ptr<Object> t_obj)
 {
     m_currentSceneState->addObject(t_obj);
+    t_obj->onInstance();
 }
 
 bool Director::isLoading()
@@ -49,7 +50,7 @@ bool Director::isLoading()
     return m_loading;
 }
 
-std::vector<std::shared_ptr<GameObject>>* Director::getObjectsInScene()
+std::vector<std::shared_ptr<Object>>* Director::getObjectsInScene()
 {
     return m_currentSceneState->getObjects();
 }

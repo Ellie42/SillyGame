@@ -7,7 +7,7 @@
 
 
 #include "RenderAdapter.h"
-#include <object/render/Mesh.h>
+#include <component/render/Mesh.h>
 #include <object/GameObject.h>
 #include <GL/glew.h>
 #include <queue>
@@ -20,7 +20,7 @@ private:
 
     void bindData(RenderData t_type, float* t_data, unsigned long t_count);
 
-    Shader* m_currentShader;
+    Shader m_currentShader;
 
     std::queue<std::shared_ptr<GameObject>> m_batchObjects;
     std::vector<GLfloat> m_batchVerts;
@@ -42,7 +42,7 @@ public:
 
     void unbindBuffer();
 
-    void setModelMatrix(GameObject* t_obj) override;
+    void setModelMatrix(Object* t_obj) override;
 
     void bindVertColourBuffer(std::shared_ptr<Mesh> t_mesh);
 

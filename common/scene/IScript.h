@@ -7,7 +7,7 @@
 
 #include "Scene.h"
 
-class ISceneDirection {
+class IScript {
     virtual std::shared_ptr<Scene> getScene() = 0;
 };
 

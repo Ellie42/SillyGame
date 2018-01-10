@@ -22,7 +22,7 @@ Shader* Material::getShader()
 
 void Material::setTexture(int t_index, std::shared_ptr<Texture> t_texture)
 {
-    m_textures.insert(m_textures.begin() + t_index, t_texture);
+    m_textures[t_index] = t_texture;
 }
 
 std::shared_ptr<Texture> Material::getTexture(int t_index)

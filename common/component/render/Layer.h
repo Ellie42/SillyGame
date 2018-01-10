@@ -5,7 +5,7 @@
 #ifndef SILLYGAME2_LAYER_H
 #define SILLYGAME2_LAYER_H
 
-short unsigned int LAYER_DEFAULT = 0x00;
-short unsigned int LAYER_UI = 0xFF;
+const short unsigned int LAYER_DEFAULT = 0x00;
+const short unsigned int LAYER_UI = 0xFF;
 
 #endif //SILLYGAME2_LAYER_H

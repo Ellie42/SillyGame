@@ -25,10 +25,10 @@ add_executable(SillyGame2
         common/object/position/Vector3.h
         game/objects/Triangle/Triangle.cpp
         game/objects/Triangle/Triangle.h
-        common/object/render/Mesh.cpp
-        common/object/render/Mesh.h
-        common/object/render/Material.cpp
-        common/object/render/Material.h
+        common/component/render/Mesh.cpp
+        common/component/render/Mesh.h
+        common/component/render/Material.cpp
+        common/component/render/Material.h
         common/object/position/Vector3.cpp
         common/object/position/Vector3.h
         common/scene/SceneState.cpp
@@ -41,7 +41,7 @@ add_executable(SillyGame2
         common/renderer/adapter/OpenGL.h
         common/renderer/shader/ShaderManager.cpp
         common/renderer/shader/ShaderManager.h
-        common/object/render/Shader.h
+        common/component/render/Shader.h
         game/objects/Cube/Cube.cpp
         game/objects/Cube/Cube.h
         common/renderer/texture/Texture2d.cpp
@@ -54,7 +54,30 @@ add_executable(SillyGame2
         game/objects/Camera/TopDownCamera.cpp
         game/objects/Camera/TopDownCamera.h
         common/input/Input.cpp
-        common/input/Input.h common/time/Time.cpp common/time/Time.h common/object/position/Direction.h game/SceneDirection.cpp game/SceneDirection.h common/scene/ISceneDirection.h game/scenes/game/DebugWorld.cpp game/scenes/game/DebugWorld.h common/world/World.cpp common/world/World.h common/world/terrain/Tile.cpp common/world/terrain/Tile.h common/object/ui/Text.cpp common/object/ui/Text.h common/object/Object.cpp common/object/Object.h common/object/render/Layer.h common/object/render/Layer.h)
+        common/input/Input.h
+        common/time/Time.cpp
+        common/time/Time.h
+        common/object/position/Direction.h
+        game/Script.cpp
+        game/Script.h
+        common/scene/IScript.h
+        game/scenes/debug/DebugWorld.cpp
+        game/scenes/debug/DebugWorld.h
+        common/world/World.cpp
+        common/world/World.h
+        common/world/terrain/Tile.cpp
+        common/world/terrain/Tile.h
+        common/object/ui/Text.cpp
+        common/object/ui/Text.h
+        common/object/Object.cpp
+        common/object/Object.h
+        common/component/render/Layer.h
+        common/component/render/Layer.h
+        game/objects/Debug/DebugText.cpp
+        game/objects/Debug/DebugText.h
+        common/component/render/MeshRenderer.cpp
+        common/component/render/MeshRenderer.h
+        common/component/render/IRendererComponent.h common/renderer/IRendererVisitor.h common/component/render/ui/TextRenderer.cpp common/component/render/ui/TextRenderer.h common/renderer/text/FontManager.cpp common/renderer/text/FontManager.h)
 
 find_package(OpenGL REQUIRED)
 find_package(Boost REQUIRED filesystem)
@@ -65,6 +88,7 @@ include_directories(osx common lib ${Boost_INCLUDE_DIRS} ${FREETYPE_INCLUDE_DIRS
 target_link_libraries(SillyGame2
         "-framework CoreFoundation"
         freeimage ${Boost_LIBRARIES}
+        ${FREETYPE_LIBRARIES}
         ${OPENGL_gl_LIBRARY}
         "-framework OpenGL"
         glfw
@@ -81,4 +105,10 @@ file(GLOB files "game/textures/**/*" "game/textures/*")
 foreach (file ${files})
     string(REGEX REPLACE ".*/game/textures" "" subDirString "${file}")
     configure_file(${file} ${CMAKE_BINARY_DIR}/textures/${subDirString} COPYONLY)
+endforeach ()
+
+file(GLOB files "game/fonts/**/*")
+foreach (file ${files})
+    string(REGEX REPLACE ".*/game/fonts" "" subDirString "${file}")
+    configure_file(${file} ${CMAKE_BINARY_DIR}/fonts/${subDirString} COPYONLY)
 endforeach ()

@@ -23,7 +23,7 @@ private:
 public:
     void loadScene(std::shared_ptr<Scene>);
 
-    void addObject(std::shared_ptr<GameObject>);
+    void addObject(std::shared_ptr<Object>);
 
     void setCamera(std::shared_ptr<Camera> t_camera);
 
@@ -33,7 +33,7 @@ public:
 
     static Director* instance();
 
-    std::vector<std::shared_ptr<GameObject>>* getObjectsInScene();
+    std::vector<std::shared_ptr<Object>>* getObjectsInScene();
 
     void onUpdate();
 };

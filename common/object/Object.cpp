@@ -18,3 +18,13 @@ short unsigned int Object::getLayer()
 {
     return m_layer;
 }
+
+IRendererComponent* Object::getRenderer()
+{
+    return m_renderer.get();
+}
+
+void Object::setRenderer(std::shared_ptr<IRendererComponent> t_renderer)
+{
+    m_renderer = t_renderer;
+}

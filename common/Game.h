@@ -7,7 +7,7 @@
 
 #include <window/Window.h>
 #include <GameState.h>
-#include "../game/SceneDirection.h"
+#include "../game/Script.h"
 
 class Game
 {
@@ -15,7 +15,7 @@ private:
     bool m_running = true;
     Window m_window;
     GameState m_state;
-    std::unique_ptr<SceneDirection> m_sceneDirection;
+    std::unique_ptr<Script> m_sceneDirection;
 public:
     void init();
 

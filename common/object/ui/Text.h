@@ -6,11 +6,15 @@
 #define SILLYGAME2_TEXT_H
 
 
-#include <object/Object.h>
+#include <object/GameObject.h>
+#include <component/render/ui/TextRenderer.h>
 
-class Text : public Object
+class Text : public GameObject
 {
-
+public:
+    Text(){
+        setRenderer(std::make_shared<TextRenderer>());
+    }
 };
 
 

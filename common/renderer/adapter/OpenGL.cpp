@@ -17,18 +17,20 @@ void OpenGL::useShader(Shader* t_shader)
         t_shader->id = ShaderManager::instance()->loadShaderGroup(t_shader->name);
     }
 
-    if (m_currentShader != nullptr && m_currentShader->id == t_shader->id)
+    if (m_currentShader.id != 0 && m_currentShader.id == t_shader->id)
     {
         return;
     }
 
-    m_currentShader = t_shader;
+    m_currentShader = *t_shader;
 
     glUseProgram(t_shader->id);
 }
 
 void OpenGL::clearShader()
 {
+    m_currentShader.id = 0;
+    m_currentShader.name = "";
     glUseProgram(0);
 }
 
@@ -62,7 +64,7 @@ void OpenGL::bindBuffer(GLuint t_id)
     glBindBuffer(GL_ARRAY_BUFFER, (GLuint) t_id);
 }
 
-void OpenGL::setModelMatrix(GameObject* t_obj)
+void OpenGL::setModelMatrix(Object* t_obj)
 {
     auto perspective = getPerspectiveMatrix();
     auto camera = getCameraMatrix();
@@ -74,7 +76,7 @@ void OpenGL::setModelMatrix(GameObject* t_obj)
 
     if (transform->getMvpHandle() < 0)
     {
-        transform->setMvpHandle(glGetUniformLocation(m_currentShader->id, "MVP"));
+        transform->setMvpHandle(glGetUniformLocation(m_currentShader.id, "MVP"));
     }
 
     glUniformMatrix4fv(transform->getMvpHandle(), 1, GL_FALSE, &mvp[0][0]);
@@ -84,10 +86,10 @@ void OpenGL::batch(std::shared_ptr<GameObject> t_obj)
 {
     m_batchObjects.push(t_obj);
 
-    for (float vert : *t_obj->getMesh()->getVerts())
-    {
-        m_batchVerts.insert(m_batchVerts.begin(), vert);
-    }
+//    for (float vert : *t_obj->getMesh()->getVerts())
+//    {
+//        m_batchVerts.insert(m_batchVerts.begin(), vert);
+//    }
 }
 
 void OpenGL::drawBatch()
@@ -109,15 +111,15 @@ void OpenGL::drawBatch()
 
     while (!m_batchObjects.empty())
     {
-        auto object = m_batchObjects.front();
-        auto count = object->getMesh()->getVertCount();
-
-        setModelMatrix(object.get());
-        glDrawArrays(GL_TRIANGLES, offset, (GLsizei) count);
-
-        offset += count;
-
-        m_batchObjects.pop();
+//        auto object = m_batchObjects.front();
+//        auto count = object->getMesh()->getVertCount();
+//
+//        setModelMatrix(object.get());
+//        glDrawArrays(GL_TRIANGLES, offset, (GLsizei) count);
+//
+//        offset += count;
+//
+//        m_batchObjects.pop();
     }
 
     m_batchVerts.clear();

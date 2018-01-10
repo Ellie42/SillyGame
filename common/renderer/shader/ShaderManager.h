@@ -6,7 +6,7 @@
 #define SILLYGAME2_SHADERMANAGER_H
 
 
-#include <object/render/Shader.h>
+#include <component/render/Shader.h>
 #include <string>
 #include <GL/glew.h>
 
